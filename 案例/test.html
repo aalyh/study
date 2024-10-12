@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Ellipsis</title>
+    <link rel="stylesheet" href="styles.css">
+	<style>
+	
+	
+		.container {
+			width: 300px; /* 设置容器宽度 */
+			white-space: nowrap; /* 防止文本换行 */
+			overflow: hidden; /* 隐藏溢出的文本 */
+			text-overflow: ellipsis; /* 使用省略号 */
+			position: relative;
+		}
+
+		#text {
+			display: inline-block;
+			max-width: 100%;
+		}
+	
+	</style>
+</head>
+<body>
+    <div class="container">
+        <p id="text"></p>
+    </div>
+    <script>
+	const textContent = '这是一个非常长的文本示例，用于展示如何在文字中间显示省略号';
+	window.addEventListener("resize", function() {
+		debugger;
+		const textElement = document.getElementById('text');
+		const container = textElement.parentElement;
+
+		// 获取容器宽度和文本宽度
+		const containerWidth = container.offsetWidth;
+		const textWidth = textElement.scrollWidth;
+
+		// 如果文本宽度大于容器宽度，则进行处理
+		if (textWidth > containerWidth) {
+			//const textContent = textElement.textContent;
+			const avgCharWidth = textWidth / textContent.length;
+			const visibleChars = Math.floor(containerWidth / avgCharWidth) - 3; // 3个字符用于省略号
+
+			const startText = textContent.slice(0, Math.floor(visibleChars / 2));
+			const endText = textContent.slice(-Math.floor(visibleChars / 2));
+
+			textElement.textContent = `${startText}...${endText}`;
+		}else{
+			textElement.textContent = textContent;
+		}
+	});
+	
+	
+	</script>
+</body>
+</html>
