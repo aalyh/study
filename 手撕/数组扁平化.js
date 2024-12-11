@@ -48,6 +48,13 @@ const treeToFlat = (data)=>{
     return result;
 }
 
+//reduce
+const newArr = (arr) => {
+    return arr.reduce((pre,cur)=>{
+        return pre.concat(Array.isArray(cur) ? newArr(cur) : cur);
+    })
+}
+
 const tree = [
     {
         id: 1,
@@ -91,4 +98,4 @@ const flat = [
     { id: 5, name: "部门5", pid: 4 }
 ]
 
-console.log(JSON.stringify(flatToTree(flat)));
+console.log(JSON.stringify(newArr(tree)));

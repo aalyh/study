@@ -3,20 +3,9 @@ const myDeepClone = (obj,chache = new WeakMap)=>{
         return obj;
     }
     let newObj = Array.isArray(obj)?[]:{};
-    if(chache.has(obj)){
-        return obj;
-    }
-    chache.set(obj,newObj);
 
-    // 处理特殊对象的情况
-    if(obj instanceof Date){
-        return new Date(obj.getTime())
-    }
-    if(obj instanceof RegExp){
-        return new RegExp(obj);
-    }
     Object.keys(obj).forEach((key)=>{
-        newObj[key] = myDeepClone(obj[key],chache);
+        newObj[key] = myDeepClone(obj[key]);
     })
     return newObj;
 }
